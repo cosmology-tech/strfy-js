@@ -1,0 +1,14 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`chain 1`] = `
+"{
+  $schema: 'schema.json',
+  chainId: 'cosmos-1',
+  logoURIs: {
+    png: 'cosmos.png'
+  },
+  binaries: {
+    "linux/amd64": 'cosmos-bin.tar.gz'
+  }
+}"
+`;

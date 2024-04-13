@@ -13,8 +13,6 @@
 
 ## Features
 
-### Features
-
 - **🛠️ Extended Serialization**: Converts JSON to JavaScript objects, supporting output, such as properties without quotes, not typically handled by standard JSON. 
 
 - **⚙️ Customizable**: Offers various options to customize the output, making it suitable for different use cases. Tailor the serialization process to meet your specific requirements.
@@ -35,23 +33,38 @@ yarn add strfy-js
 
 Import `jsStringify` from `strfy-js` and use it to serialize JavaScript objects:
 
-```javascript
+```js
 import { jsStringify } from 'strfy-js';
 
 const obj = {
-    name: "Alice",
-    details: {
-        age: 30,
-        hobbies: ['reading', 'cycling']
-    }
+  "$schema": "schema.json",
+  "chain_id": "cosmos-1",
+  "logo_URIs": {
+    "png": "cosmos.png"
+  },
+  "binaries": {
+    "linux/amd64": "cosmos-bin.tar.gz"
+  }
 };
 
 const options = {
     space: 2,
+    camelCase: true,
     quotes: 'single'
 };
 
 console.log(jsStringify(obj, options));
+// OUTPUT:
+{
+  $schema: 'schema.json',
+  chainId: 'cosmos-1',
+  logoURIs: {
+    png: 'cosmos.png'
+  },
+  binaries: {
+    "linux/amd64": 'cosmos-bin.tar.gz'
+  }
+}
 ```
 
 ## Options
