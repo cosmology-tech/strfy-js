@@ -56,6 +56,9 @@ console.log(jsStringify(obj, options));
 - `space` (optional): Specifies the number of spaces to use for indentation, defaults to `0`.
 - `replacer` (optional): A function that alters the behavior of the stringification process by filtering and transforming the values.
 - `quotes` (optional): Determines the type of quotes around strings. Can be `'single'`, `'double'`, or determined automatically to avoid escapes.
+- `inlineArrayLimit` (optional): Allows arrays to be serialized inline if they have fewer elements than the specified limit.
+- `camelCase` (optional): When set to `true`, object keys are transformed into camelCase.
+- `camelCaseFn` (optional): A custom function that can be provided to convert object keys into camelCase using a custom transformation logic.
 
 ## Contributing
 
