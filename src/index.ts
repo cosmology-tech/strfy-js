@@ -3,6 +3,12 @@ interface StringifyOptions {
   replacer?: (this: any, key: string, value: any) => any | null; // defaults to null
   quotes?: 'single' | 'double'; // defaults to single
   inlineArrayLimit?: number; // default is undefined, allowing inline arrays below this length
+  camelCase?: boolean; // defaults to false
+  camelCaseFn?: (str: string) => string; // optional function to convert keys to camelCase
+}
+
+function camelCaseTransform(key: string): string {
+  return key.replace(/[-_\s]+(.)?/g, (_, c) => c ? c.toUpperCase() : '');
 }
 
 function isSimpleKey(key: string): boolean {
@@ -59,8 +65,9 @@ export function chooseQuotes(str: string, preferred: 'single' | 'double' | 'back
   }
 }
 
+
 export function jsStringify(obj: any, options?: StringifyOptions): string {
-  const { space = 0, replacer = null, quotes = 'single', inlineArrayLimit = undefined } = options || {};
+  const { space = 0, replacer = null, quotes = 'single', inlineArrayLimit = undefined, camelCase = false, camelCaseFn = camelCaseTransform } = options || {};
   const isObject = (val: any): boolean => typeof val === 'object' && val !== null && !Array.isArray(val);
   let indentLevel: number = 0;
 
@@ -81,7 +88,8 @@ export function jsStringify(obj: any, options?: StringifyOptions): string {
       indentLevel++;
       const props = Object.keys(obj).map(key => {
         const value = replacer instanceof Function ? replacer.call(obj, key, obj[key]) : obj[key];
-        const keyPart = isSimpleKey(key) ? key : `"${key}"`;
+        const transformedKey = camelCase ? camelCaseFn(key) : key;
+        const keyPart = isSimpleKey(transformedKey) ? transformedKey : `"${transformedKey}"`;
         const valuePart = serialize(value);
         return ' '.repeat(indentLevel * space) + `${keyPart}: ${valuePart}`;
       });
