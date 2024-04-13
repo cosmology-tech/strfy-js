@@ -1,0 +1,28 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`applies replacer function if provided 1`] = `"{firstName: 'Alice', lastName: 'Johnson', age: undefined}"`;
+
+exports[`handles complex nested objects with arrays 1`] = `
+"{
+  user: {
+    id: 2,
+    details: {
+      name: 'Bob',
+      hobbies: [
+        'skiing',
+        'cycling'
+      ]
+    }
+  }
+}"
+`;
+
+exports[`properly escapes strings when necessary 1`] = `"{complexString: "She said, \\"That's \`incredible\`!\\""}"`;
+
+exports[`serializes simple objects without quotes on keys where possible 1`] = `"{id: 1, name: 'Alice', isActive: true}"`;
+
+exports[`switches to backticks when single quotes are in the string 1`] = `"{message: \`It's a wonderful day!\`}"`;
+
+exports[`uses double quotes when backticks and single quotes are present 1`] = `"{quote: "\`This\` is 'awesome'!"}"`;
+
+exports[`uses single quotes for strings by default 1`] = `"{greeting: 'Hello, world!'}"`;
