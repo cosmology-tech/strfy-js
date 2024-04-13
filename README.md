@@ -1,13 +1,13 @@
-# stringify-js
+# strfy-js
 
 <p align="center" width="100%">
-  <a href="https://github.com/pyramation/stringify-js/actions/workflows/run-tests.yaml">
-    <img height="20" src="https://github.com/pyramation/stringify-js/actions/workflows/run-tests.yaml/badge.svg" />
+  <a href="https://github.com/pyramation/strfy-js/actions/workflows/run-tests.yaml">
+    <img height="20" src="https://github.com/pyramation/strfy-js/actions/workflows/run-tests.yaml/badge.svg" />
   </a>
-   <a href="https://github.com/pyramation/stringify-js/blob/main/LICENSE-MIT"><img height="20" src="https://img.shields.io/badge/license-MIT-blue.svg"/></a>
+   <a href="https://github.com/pyramation/strfy-js/blob/main/LICENSE-MIT"><img height="20" src="https://img.shields.io/badge/license-MIT-blue.svg"/></a>
 </p>
 
-`stringify-js` is a custom JavaScript serialization library that extends the capabilities of JSON serialization. This library allows property names to be unquoted if they comply with JavaScript naming conventions and provides flexible quoting options for string values, including handling special characters with alternative quotes or escaping.
+`strfy-js` is a custom JavaScript serialization library that extends the capabilities of JSON serialization. This library allows property names to be unquoted if they comply with JavaScript naming conventions and provides flexible quoting options for string values, including handling special characters with alternative quotes or escaping.
 
 ## Features
 
@@ -18,20 +18,20 @@
 
 ## Installation
 
-To install `stringify-js`, use npm or yarn:
+To install `strfy-js`, use npm or yarn:
 
 ```bash
-npm install stringify-js
+npm install strfy-js
 # or
-yarn add stringify-js
+yarn add strfy-js
 ``` 
 
 ## Usage
 
-Import `jsStringify` from `stringify-js` and use it to serialize JavaScript objects:
+Import `jsStringify` from `strfy-js` and use it to serialize JavaScript objects:
 
 ```javascript
-import { jsStringify } from 'stringify-js';
+import { jsStringify } from 'strfy-js';
 
 const obj = {
     name: "Alice",

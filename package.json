@@ -3,7 +3,7 @@
   "version": "0.1.2",
   "description": "kinda like JSON.stringify, but for generating JSON that is meant for JS objects",
   "author": "Dan Lynch <pyramation@gmail.com>",
-  "homepage": "https://github.com/pyramation/stringify-js#readme",
+  "homepage": "https://github.com/pyramation/strfy-js#readme",
   "license": "SEE LICENSE IN LICENSE",
   "main": "main/index.js",
   "module": "module/index.js",
@@ -50,11 +50,11 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/pyramation/stringify-js"
+    "url": "https://github.com/pyramation/strfy-js"
   },
   "keywords": [],
   "bugs": {
-    "url": "https://github.com/pyramation/stringify-js/issues"
+    "url": "https://github.com/pyramation/strfy-js/issues"
   },
   "devDependencies": {
     "@types/jest": "^29.5.12",
