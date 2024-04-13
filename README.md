@@ -1,5 +1,7 @@
 # strfy-js
 
+## Stringify JSON as JavaScript 🌴
+
 <p align="center" width="100%">
   <a href="https://github.com/pyramation/strfy-js/actions/workflows/run-tests.yaml">
     <img height="20" src="https://github.com/pyramation/strfy-js/actions/workflows/run-tests.yaml/badge.svg" />
@@ -7,14 +9,17 @@
    <a href="https://github.com/pyramation/strfy-js/blob/main/LICENSE-MIT"><img height="20" src="https://img.shields.io/badge/license-MIT-blue.svg"/></a>
 </p>
 
-`strfy-js` is a custom JavaScript serialization library that extends the capabilities of JSON serialization. This library allows property names to be unquoted if they comply with JavaScript naming conventions and provides flexible quoting options for string values, including handling special characters with alternative quotes or escaping.
+`strfy-js` is a custom JavaScript serialization library designed to extend the capabilities of JSON serialization. This library is particularly useful for generating JavaScript objects directly from JSON, enabling developers to work with JSON data more effectively within JavaScript environments.
 
 ## Features
 
-- **Custom Property Naming:** Serialize JavaScript object keys without quotes if they are valid JavaScript identifiers.
-- **Flexible String Quoting:** Choose between single, double, or backtick quotes for string values depending on the content to avoid escaping.
-- **Pretty Printing:** Control the indentation of the output for better readability.
-- **Custom Replacers:** Similar to `JSON.stringify`, a replacer function can be used to filter or alter the values before they are serialized.
+### Features
+
+- **🛠️ Extended Serialization**: Converts JSON to JavaScript objects, supporting output, such as properties without quotes, not typically handled by standard JSON. 
+
+- **⚙️ Customizable**: Offers various options to customize the output, making it suitable for different use cases. Tailor the serialization process to meet your specific requirements.
+
+- **⚡ Lightweight and Fast**: Optimized for performance, making it a practical choice for applications that require fast serialization of large amounts of data. Ideal for handling high-load environments efficiently.
 
 ## Installation
 
