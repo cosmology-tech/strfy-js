@@ -1,6 +1,6 @@
 {
   "name": "strfy-js",
-  "version": "1.5.0",
+  "version": "1.7.7",
   "description": "kinda like JSON.stringify, but for generating JSON that is meant for JS objects",
   "author": "Dan Lynch <pyramation@gmail.com>",
   "homepage": "https://github.com/pyramation/strfy-js#readme",
