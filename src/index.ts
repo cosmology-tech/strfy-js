@@ -9,17 +9,54 @@ function isSimpleKey(key: string): boolean {
   return /^[a-zA-Z_$][a-zA-Z0-9_$]*$/.test(key);
 }
 
-function chooseQuotes(str: string, preferred: 'single' | 'double'): string {
-  if (preferred === 'single') {
-    if (!str.includes('\'')) return `'${str}'`;
-    else if (!str.includes('`')) return `\`${str}\``;
-    else if (!str.includes('"')) return `"${str}"`;
-  } else {
-    if (!str.includes('"')) return `"${str}"`;
-    else if (!str.includes('`')) return `\`${str}\``;
-    else if (!str.includes('\'')) return `'${str}'`;
+function escapeStringForSingleQuotes(str: string): string {
+  // Escape backslashes first
+  str = str.replace(/\\/g, '\\\\');
+  // Escape control characters
+  str = str.replace(/\n/g, '\\n');
+  str = str.replace(/\r/g, '\\r');
+  str = str.replace(/\t/g, '\\t');
+  // Escape only single quotes
+  str = str.replace(/'/g, "\\'");
+  return str;
+}
+
+function escapeStringForDoubleQuotes(str: string): string {
+  // Escape backslashes first
+  str = str.replace(/\\/g, '\\\\');
+  // Escape control characters
+  str = str.replace(/\n/g, '\\n');
+  str = str.replace(/\r/g, '\\r');
+  str = str.replace(/\t/g, '\\t');
+  // Escape only double quotes
+  str = str.replace(/"/g, '\\"');
+  return str;
+}
+
+
+function escapeStringForBacktickQuotes(str: string): string {
+  // Escape backslashes first
+  str = str.replace(/\\/g, '\\\\');
+  // Escape control characters
+  str = str.replace(/\n/g, '\\n');
+  str = str.replace(/\r/g, '\\r');
+  str = str.replace(/\t/g, '\\t');
+  // Escape backticks
+  str = str.replace(/`/g, '\\`');
+  return str;
+}
+
+export function chooseQuotes(str: string, preferred: 'single' | 'double' | 'backtick'): string {
+  switch (preferred) {
+    case 'single':
+      return `'${escapeStringForSingleQuotes(str)}'`;
+    case 'double':
+      return `"${escapeStringForDoubleQuotes(str)}"`;
+    case 'backtick':
+      return `\`${escapeStringForBacktickQuotes(str)}\``;
+    default:
+      throw new Error("Invalid quote type specified.");
   }
-  return JSON.stringify(str); // Fallback: use JSON.stringify to escape the string properly
 }
 
 export function jsStringify(obj: any, options?: StringifyOptions): string {

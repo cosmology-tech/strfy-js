@@ -51,7 +51,7 @@ exports[`serializes objects with keys starting with $ correctly 1`] = `"{$id: 1,
 
 exports[`serializes simple objects without quotes on keys where possible 1`] = `"{id: 1, name: 'Alice', isActive: true}"`;
 
-exports[`switches to backticks when single quotes are in the string 1`] = `"{message: \`It's a wonderful day!\`}"`;
+exports[`switches to backticks when single quotes are in the string 1`] = `"{message: 'It\\'s a wonderful day!'}"`;
 
 exports[`uses double quotes when backticks and single quotes are present 1`] = `"{quote: "\`This\` is 'awesome'!"}"`;
 
