@@ -17,7 +17,37 @@ exports[`handles complex nested objects with arrays 1`] = `
 }"
 `;
 
+exports[`handles nested arrays with inlineArrayLimit 1`] = `
+"{
+  matrix: [[1, 2], [3, 4]]
+}"
+`;
+
 exports[`properly escapes strings when necessary 1`] = `"{complexString: "She said, \\"That's \`incredible\`!\\""}"`;
+
+exports[`serializes arrays with newlines when length exceeds the inlineArrayLimit with space set 1`] = `
+"{
+  numbers: [
+    1,
+    2,
+    3,
+    4,
+    5
+  ]
+}"
+`;
+
+exports[`serializes arrays without newlines when length equals the inlineArrayLimit 1`] = `
+"{
+  numbers: [1, 2, 3, 4, 5]
+}"
+`;
+
+exports[`serializes arrays without newlines when length exceeds the inlineArrayLimit 1`] = `"{numbers: [1, 2, 3, 4, 5]}"`;
+
+exports[`serializes arrays without newlines when length is below the inlineArrayLimit 1`] = `"{numbers: [1, 2, 3]}"`;
+
+exports[`serializes objects with keys starting with $ correctly 1`] = `"{$id: 1, name: 'Alice', $type: 'user'}"`;
 
 exports[`serializes simple objects without quotes on keys where possible 1`] = `"{id: 1, name: 'Alice', isActive: true}"`;
 

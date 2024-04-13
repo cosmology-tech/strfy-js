@@ -2,10 +2,11 @@ interface StringifyOptions {
   space?: number; // defaults to 0
   replacer?: (this: any, key: string, value: any) => any | null; // defaults to null
   quotes?: 'single' | 'double'; // defaults to single
+  inlineArrayLimit?: number; // default is undefined, allowing inline arrays below this length
 }
 
 function isSimpleKey(key: string): boolean {
-  return /^[a-zA-Z_][a-zA-Z0-9_]*$/.test(key);
+  return /^[a-zA-Z_$][a-zA-Z0-9_$]*$/.test(key);
 }
 
 function chooseQuotes(str: string, preferred: 'single' | 'double'): string {
@@ -22,7 +23,7 @@ function chooseQuotes(str: string, preferred: 'single' | 'double'): string {
 }
 
 export function jsStringify(obj: any, options?: StringifyOptions): string {
-  const { space = 0, replacer = null, quotes = 'single' } = options || {};
+  const { space = 0, replacer = null, quotes = 'single', inlineArrayLimit = undefined } = options || {};
   const isObject = (val: any): boolean => typeof val === 'object' && val !== null && !Array.isArray(val);
   let indentLevel: number = 0;
 
@@ -32,10 +33,11 @@ export function jsStringify(obj: any, options?: StringifyOptions): string {
     }
 
     if (Array.isArray(obj)) {
+      const useInline = inlineArrayLimit !== undefined && obj.length <= inlineArrayLimit;
       indentLevel++;
-      const result = '[' + (space ? '\n' : '') + obj.map(item => {
-        return ' '.repeat(indentLevel * space) + serialize(item);
-      }).join(',' + (space ? '\n' : ' ')) + (space ? '\n' + ' '.repeat((indentLevel - 1) * space) : '') + ']';
+      const result = '[' + (space && !useInline ? '\n' : '') + obj.map(item => {
+        return ' '.repeat(useInline ? 0 : indentLevel * space) + serialize(item);
+      }).join(',' + (space && !useInline ? '\n' : ' ')) + (space && !useInline ? '\n' + ' '.repeat((indentLevel - 1) * space) : '') + ']';
       indentLevel--;
       return result;
     } else if (isObject(obj)) {
