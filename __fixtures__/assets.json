@@ -1,13 +1,10 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`assetlist 1`] = `
-"{
+{
   "$schema": "../assetlist.schema.json",
-  "chainName": "comdex",
+  "chain_name": "comdex",
   "assets": [
     {
       "description": "Native Token of Comdex Protocol",
-      "denomUnits": [
+      "denom_units": [
         {
           "denom": "ucmdx",
           "exponent": 0
@@ -21,11 +18,11 @@ exports[`assetlist 1`] = `
       "name": "Comdex",
       "display": "cmdx",
       "symbol": "CMDX",
-      "logoURIs": {
+      "logo_URIs": {
         "png": "https://raw.githubusercontent.com/cosmos/chain-registry/master/comdex/images/cmdx.png",
         "svg": "https://raw.githubusercontent.com/cosmos/chain-registry/master/comdex/images/cmdx.svg"
       },
-      "coingeckoId": "comdex",
+      "coingecko_id": "comdex",
       "images": [
         {
           "png": "https://raw.githubusercontent.com/cosmos/chain-registry/master/comdex/images/cmdx.png",
@@ -34,9 +31,9 @@ exports[`assetlist 1`] = `
       ]
     },
     {
-      "typeAsset": "sdk.Factory",
+      "type_asset": "sdk.Factory",
       "description": "Governance Token of Harbor protocol on Comdex network",
-      "denomUnits": [
+      "denom_units": [
         {
           "denom": "uharbor",
           "exponent": 0
@@ -50,11 +47,11 @@ exports[`assetlist 1`] = `
       "name": "Harbor",
       "display": "harbor",
       "symbol": "HARBOR",
-      "logoURIs": {
+      "logo_URIs": {
         "png": "https://raw.githubusercontent.com/cosmos/chain-registry/master/comdex/images/harbor.png",
         "svg": "https://raw.githubusercontent.com/cosmos/chain-registry/master/comdex/images/harbor.svg"
       },
-      "coingeckoId": "harbor-2",
+      "coingecko_id": "harbor-2",
       "images": [
         {
           "png": "https://raw.githubusercontent.com/cosmos/chain-registry/master/comdex/images/harbor.png",
@@ -64,7 +61,7 @@ exports[`assetlist 1`] = `
     },
     {
       "description": "Stable Token of Harbor protocol on Comdex network",
-      "denomUnits": [
+      "denom_units": [
         {
           "denom": "ucmst",
           "exponent": 0
@@ -78,11 +75,11 @@ exports[`assetlist 1`] = `
       "name": "CMST",
       "display": "cmst",
       "symbol": "CMST",
-      "logoURIs": {
+      "logo_URIs": {
         "png": "https://raw.githubusercontent.com/cosmos/chain-registry/master/comdex/images/cmst.png",
         "svg": "https://raw.githubusercontent.com/cosmos/chain-registry/master/comdex/images/cmst.svg"
       },
-      "coingeckoId": "composite",
+      "coingecko_id": "composite",
       "images": [
         {
           "png": "https://raw.githubusercontent.com/cosmos/chain-registry/master/comdex/images/cmst.png",
@@ -92,7 +89,7 @@ exports[`assetlist 1`] = `
     },
     {
       "description": "My ibc token",
-      "denomUnits": [
+      "denom_units": [
         {
           "denom": "uibc",
           "exponent": 0
@@ -106,11 +103,11 @@ exports[`assetlist 1`] = `
       "name": "IBC",
       "display": "ibc",
       "symbol": "IBC",
-      "logoURIs": {
+      "logo_URIs": {
         "png": "https://raw.githubusercontent.com/cosmos/chain-registry/master/comdex/images/cmst.png",
         "svg": "https://raw.githubusercontent.com/cosmos/chain-registry/master/comdex/images/cmst.svg"
       },
-      "coingeckoId": "ibc",
+      "coingecko_id": "ibc",
       "images": [
         {
           "png": "https://raw.githubusercontent.com/cosmos/chain-registry/master/comdex/images/cmst.png",
@@ -119,5 +116,4 @@ exports[`assetlist 1`] = `
       ]
     }
   ]
-}"
-`;
+}

@@ -64,11 +64,14 @@
     "esprima": "4.0.1",
     "jest-in-case": "1.0.2",
     "jest": "^29.5.0",
-    "minimatch": "^9.0.4",
     "prettier": "^2.8.7",
     "rimraf": "5.0.0",
+    "nested-obj": "^0.0.1",
     "ts-jest": "^29.1.0",
     "ts-node": "10.9.2",
     "typescript": "^5.0.4"
+  },
+  "dependencies": {
+    "minimatch": "^9.0.4"
   }
 }

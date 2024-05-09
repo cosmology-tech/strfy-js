@@ -1,9 +1,4 @@
-export interface JSONStringifyOptions {
-    space?: number;
-    replacer?: (this: any, key: string, value: any) => any;
-    quotes?: 'single' | 'double';
-    inlineArrayLimit?: number;
-    camelCase?: boolean;
-    camelCaseFn?: (str: string) => string;
+import { JSStringifyOptions } from "./js";
+export interface JSONStringifyOptions extends Omit<JSStringifyOptions, 'json'> {
 }
 export declare function jsonStringify(obj: any, options?: JSONStringifyOptions): string;

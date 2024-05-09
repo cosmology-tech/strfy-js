@@ -1,98 +1,7 @@
 import { minimatch } from "minimatch";
-import { jsStringify } from "../src";
+import { jsStringify, JSStringifyOptions, JSStringifyReplacer, JSStringifyPropertyReplacerOptions, JSStringifySetterOptions } from "../src";
 
-const assetlist = {
-  "$schema": "../assetlist.schema.json",
-  "chain_name": "comdex",
-  "assets": [
-    {
-      "description": "Native Token of Comdex Protocol",
-      "denom_units": [
-        {
-          "denom": "ucmdx",
-          "exponent": 0
-        },
-        {
-          "denom": "cmdx",
-          "exponent": 6
-        }
-      ],
-      "base": "ucmdx",
-      "name": "Comdex",
-      "display": "cmdx",
-      "symbol": "CMDX",
-      "logo_URIs": {
-        "png": "https://raw.githubusercontent.com/cosmos/chain-registry/master/comdex/images/cmdx.png",
-        "svg": "https://raw.githubusercontent.com/cosmos/chain-registry/master/comdex/images/cmdx.svg"
-      },
-      "coingecko_id": "comdex",
-      "images": [
-        {
-          "png": "https://raw.githubusercontent.com/cosmos/chain-registry/master/comdex/images/cmdx.png",
-          "svg": "https://raw.githubusercontent.com/cosmos/chain-registry/master/comdex/images/cmdx.svg"
-        }
-      ]
-    },
-    {
-      "type_asset": "sdk.Coin",
-      "description": "Governance Token of Harbor protocol on Comdex network",
-      "denom_units": [
-        {
-          "denom": "uharbor",
-          "exponent": 0
-        },
-        {
-          "denom": "harbor",
-          "exponent": 6
-        }
-      ],
-      "base": "uharbor",
-      "name": "Harbor",
-      "display": "harbor",
-      "symbol": "HARBOR",
-      "logo_URIs": {
-        "png": "https://raw.githubusercontent.com/cosmos/chain-registry/master/comdex/images/harbor.png",
-        "svg": "https://raw.githubusercontent.com/cosmos/chain-registry/master/comdex/images/harbor.svg"
-      },
-      "coingecko_id": "harbor-2",
-      "images": [
-        {
-          "png": "https://raw.githubusercontent.com/cosmos/chain-registry/master/comdex/images/harbor.png",
-          "svg": "https://raw.githubusercontent.com/cosmos/chain-registry/master/comdex/images/harbor.svg"
-        }
-      ]
-    },
-    {
-      "description": "Stable Token of Harbor protocol on Comdex network",
-      "denom_units": [
-        {
-          "denom": "ucmst",
-          "exponent": 0
-        },
-        {
-          "denom": "cmst",
-          "exponent": 6
-        }
-      ],
-      "base": "ucmst",
-      "name": "CMST",
-      "display": "cmst",
-      "symbol": "CMST",
-      "logo_URIs": {
-        "png": "https://raw.githubusercontent.com/cosmos/chain-registry/master/comdex/images/cmst.png",
-        "svg": "https://raw.githubusercontent.com/cosmos/chain-registry/master/comdex/images/cmst.svg"
-      },
-      "coingecko_id": "composite",
-      "images": [
-        {
-          "png": "https://raw.githubusercontent.com/cosmos/chain-registry/master/comdex/images/cmst.png",
-          "svg": "https://raw.githubusercontent.com/cosmos/chain-registry/master/comdex/images/cmst.svg"
-        }
-      ]
-    }
-  ]
-};
-
+import assetList from '../__fixtures__/assets.json';
 
 it('assetlist', () => {
 
@@ -105,27 +14,23 @@ it('assetlist', () => {
     }
   };
 
-  const jsonString = jsStringify(assetlist, options);
+  const jsonString = jsStringify(assetList, options);
 
   expect(jsonString).toMatchSnapshot();
 });
 
-function propertyReplacer(
-  currentKey: string,
-  currentPath: string,
-  propertyRenameMap: { [pattern: string]: string }
-): string {
-  let finalKey = currentKey;
-  Object.keys(propertyRenameMap).forEach(pattern => {
-    if (minimatch(currentPath, pattern)) {
-      finalKey = propertyRenameMap[pattern];
+function propertyReplacer(options: JSStringifyPropertyReplacerOptions<any, any>): string {
+  let finalKey = options.currentKey;
+  Object.keys(options.propertyRenameMap).forEach(pattern => {
+    if (minimatch(options.currentPath, pattern)) {
+      finalKey = options.propertyRenameMap[pattern];
     }
   });
   return finalKey;
 }
 
 it('replacer', () => {
-  const options = {
+  const options: JSStringifyOptions = {
     camelCase: true,
     space: 2,
     propertyRenameMap: {
@@ -134,6 +39,6 @@ it('replacer', () => {
     },
     propertyReplacer
   };
-  const jsonString = jsStringify(assetlist, options);
+  const jsonString = jsStringify(assetList, options);
   expect(jsonString).toMatchSnapshot();
 });

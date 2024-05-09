@@ -1,4 +1,4 @@
-import { jsStringify } from '../src';
+import { jsStringify, JSStringifyPropertyReplacerOptions, JSStringifyReplacer } from '../src';
 
 it('serializes simple objects without quotes on keys where possible', () => {
   const obj = {
@@ -62,11 +62,15 @@ it('applies replacer function if provided', () => {
     lastName: 'Johnson',
     age: 30
   };
-  const replacer = (key: string, value: any) => {
-    if (key === 'age') return undefined;
-    return value;
+  const valueReplacer = (opts: JSStringifyPropertyReplacerOptions<any, any>) => {
+    if (opts.currentKey === 'age') return 45;
+    return opts.value;
   };
-  const output = jsStringify(obj, { replacer });
+  const output = jsStringify(obj, {
+    valueReplacer: {
+      '/age': valueReplacer
+    }
+  });
   expect(output).toMatchSnapshot();
 });
 

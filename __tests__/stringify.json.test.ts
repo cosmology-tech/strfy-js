@@ -1,4 +1,4 @@
-import { jsonStringify } from '../src';
+import { jsonStringify, JSStringifyPropertyReplacerOptions } from '../src';
 
 it('serializes simple objects without quotes on keys where possible', () => {
   const obj = {
@@ -56,17 +56,41 @@ it('properly escapes strings when necessary', () => {
   expect(output).toMatchSnapshot();
 });
 
+interface Person {
+  firstName: string;
+  lastName: string;
+  age: number
+}
+
 it('applies replacer function if provided', () => {
-  const obj = {
-    firstName: 'Alice',
-    lastName: 'Johnson',
-    age: 30
-  };
-  const replacer = (key: string, value: any) => {
-    if (key === 'age') return undefined;
-    return value;
-  };
-  const output = jsonStringify(obj, { replacer });
+  const obj: Person[] = [
+    {
+      firstName: 'Alice',
+      lastName: 'Johnson',
+      age: 30
+    },
+    {
+      firstName: 'Dana',
+      lastName: 'Johnson',
+      age: 30
+    }
+  ]
+  const output = jsonStringify(obj, {
+    valueReplacer: {
+      '*': (opts: JSStringifyPropertyReplacerOptions<Person, Person[]>) => {
+        if (opts.obj.lastName === 'Johnson') {
+          if (opts.currentKey === 'age') {
+            return 20;
+          }
+        }
+        return opts.value;
+      },
+      '/*/age': (opts: JSStringifyPropertyReplacerOptions<Person, Person[]>) => {
+        if (opts.obj.firstName === 'Dana') return 46;
+        return opts.value;
+      },
+    }
+  });
   expect(output).toMatchSnapshot();
 });
 

@@ -1,14 +1,38 @@
-import { camelCaseTransform, escapeStringForBacktickQuotes, escapeStringForDoubleQuotes, escapeStringForSingleQuotes, isSimpleKey } from "./utils";
+import { camelCaseTransform, dirname, escapeStringForBacktickQuotes, escapeStringForDoubleQuotes, escapeStringForSingleQuotes, isSimpleKey, shouldInclude } from "./utils";
 
+export interface JSStringifySetterOptions<ObjType, RootType> {
+  currentKey: string;
+  currentPath: string;
+  value: any;
+  obj: ObjType;
+  root: RootType;
+  defaultValuesMap: { [path: string]: any };
+};
+
+export interface JSStringifyPropertyReplacerOptions<ObjType, RootType> {
+  currentKey: string;
+  currentPath: string;
+  propertyRenameMap: { [pattern: string]: string };
+  obj: ObjType;
+  root: RootType
+  value?: any;
+}
+
+export type JSStringifySetter = (options: JSStringifySetterOptions<any, any>) => any;
+export type JSStringifyReplacer = (options: JSStringifyPropertyReplacerOptions<any, any>) => any;
 export interface JSStringifyOptions {
   space?: number;
-  replacer?: (key: string, value: any) => any | null;
-  propertyReplacer?: (currentKey: string, currentPath: string, propertyRenameMap: { [pattern: string]: string }) => string
+  propertyReplacer?: (options: JSStringifyPropertyReplacerOptions<any, any>) => string
+  valueReplacer?: Record<string, (options: JSStringifyPropertyReplacerOptions<any, any>) => any>;
   quotes?: 'single' | 'double' | 'backtick';
   inlineArrayLimit?: number;
   camelCase?: boolean;
   camelCaseFn?: (str: string) => string;
-  propertyRenameMap?: { [key: string]: string };
+  include?: string[];
+  exclude?: string[];
+  defaultValuesMap?: { [path: string]: any };
+  propertyRenameMap?: { [path: string]: any };
+  defaultValuesSetter?: { [path: string]: JSStringifySetter } | JSStringifySetter;
   json?: boolean;
 }
 
@@ -26,7 +50,9 @@ export function chooseQuotes(str: string, preferred: 'single' | 'double' | 'back
   }
 }
 
-function matchesPattern(path, pattern) {
+function matchesPattern(path: string, pattern: string) {
+  if (pattern === '*') return true;
+  if (path === pattern) return true;
   const pathSegments = path.split('/');
   const patternSegments = pattern.split('/');
   if (pathSegments.length !== patternSegments.length) {
@@ -54,17 +80,20 @@ function defaultPropertyReplacer(
   return finalKey;
 }
 
-
 export function jsStringify(obj: any, options?: JSStringifyOptions): string {
   const {
     space = 0,
-    replacer = null,
     propertyReplacer = null,
+    valueReplacer = {},
     quotes = 'single',
     inlineArrayLimit = undefined,
     camelCase = false,
     camelCaseFn = camelCaseTransform,
     propertyRenameMap = {},
+    defaultValuesMap = {},
+    defaultValuesSetter = {},
+    include = [],
+    exclude = [],
     json = false  // JSON compliance mode
   } = options || {};
 
@@ -72,30 +101,140 @@ export function jsStringify(obj: any, options?: JSStringifyOptions): string {
 
   let indentLevel: number = 0;
 
-  const serialize = (obj: any, currentPath = "", isArray: boolean = false): string => {
-    if (replacer instanceof Function) {
-      obj = replacer.call(null, '', obj); // Call replacer for the root element initially
+  const serialize = (root: any, obj: any, currentPath = ""): string => {
+    if (valueReplacer[''] instanceof Function) {
+      obj = valueReplacer['']({
+        currentKey: '',
+        currentPath,
+        obj,
+        propertyRenameMap,
+        root,
+        value: obj
+      }); // Call valueReplacer for the root element initially
     }
 
     if (Array.isArray(obj)) {
       const useInline = inlineArrayLimit !== undefined && obj.length <= inlineArrayLimit;
       indentLevel++;
       const result = '[' + (space && !useInline ? '\n' : '') + obj.map((item, index) => {
-        return ' '.repeat(useInline ? 0 : indentLevel * space) + serialize(item, `${currentPath}/${index}`, true);
+        return ' '.repeat(useInline ? 0 : indentLevel * space) + serialize(root, item, `${currentPath}/${index}`);
       }).join(',' + (space && !useInline ? '\n' : ' ')) + (space && !useInline ? '\n' + ' '.repeat((indentLevel - 1) * space) : '') + ']';
       indentLevel--;
       return result;
     } else if (isObject(obj)) {
       indentLevel++;
+
+      // Apply custom default values setter if available
+      Object.keys(valueReplacer).forEach(pattern => {
+        if (matchesPattern(currentPath, dirname(pattern))) {
+          const replacer: JSStringifyReplacer = valueReplacer[pattern];
+          const property = pattern.split('/').pop(); // get the last segment as property name
+          if (property === '*') {
+            // Apply setter to all properties if needed
+            Object.keys(obj).forEach(prop => {
+              obj[prop] = replacer({
+                currentKey: prop,
+                currentPath: `${currentPath}/${prop}`,
+                obj,
+                value: obj[prop],
+                root,
+                propertyRenameMap
+              });
+            });
+          } else if (property) {
+            obj[property] = replacer({
+              currentKey: property,
+              currentPath,
+              obj,
+              value: obj[property],
+              root,
+              propertyRenameMap
+            });
+          }
+
+        }
+      });
+
+      // Apply custom default values setter if available
+      Object.keys(defaultValuesSetter).forEach(pattern => {
+        if (matchesPattern(currentPath, dirname(pattern))) {
+          const setter: JSStringifySetter = defaultValuesSetter[pattern];
+          const property = pattern.split('/').pop(); // get the last segment as property name
+          if (property === '*') {
+            // Apply setter to all properties if needed
+            Object.keys(obj).forEach(prop => {
+              if (obj[prop] === undefined) {
+                obj[prop] = setter({
+                  currentKey: prop,
+                  currentPath: `${currentPath}/${prop}`,
+                  obj,
+                  value: obj[prop],
+                  root,
+                  defaultValuesMap
+                });
+              }
+            });
+          } else if (property && obj[property] === undefined) {
+            obj[property] = setter({
+              currentKey: property,
+              currentPath,
+              obj,
+              value: obj[property],
+              root,
+              defaultValuesMap
+            });
+          }
+        }
+      });
+
+      // Apply default values based on currentPath
+      Object.keys(defaultValuesMap).forEach(pattern => {
+        if (matchesPattern(currentPath, pattern)) {
+          const property = pattern.split('/').pop(); // get the last segment as property name
+          if (property === '*') {
+            // Apply to all properties if needed
+            Object.keys(obj).forEach(prop => {
+              if (obj[prop] === undefined) {
+                obj[prop] = defaultValuesMap[pattern];
+              }
+            });
+          } else if (property && obj[property] === undefined) {
+            obj[property] = defaultValuesMap[pattern];
+          }
+        }
+      });
+
+
+      // INCLUDES EXCLUDES
+
+      obj = Object.keys(obj).reduce((m, key) => {
+        const fullPath = `${currentPath}/${key}`;
+        if (shouldInclude(fullPath, {
+          exclude,
+          include
+        })) {
+          m[key] = obj[key];
+        }
+        return m;
+      }, {});
+
+
+      // CHANGE PROPERTY NAMES
+
       const props = Object.keys(obj).map(key => {
         const fullPath = `${currentPath}/${key}`;
-        const value = replacer instanceof Function ? replacer.call(obj, key, obj[key]) : obj[key];
-
+        const value = valueReplacer instanceof Function ? valueReplacer({
+          currentKey: key,
+          currentPath: fullPath,
+          obj: obj[key],
+          propertyRenameMap,
+          root
+        }) : obj[key];
 
         let replacedKey: string;
         switch (true) {
           case propertyReplacer instanceof Function:
-            replacedKey = propertyReplacer.call(obj, key, fullPath, propertyRenameMap);
+            replacedKey = propertyReplacer({ root, obj, currentKey: key, currentPath: fullPath, propertyRenameMap });
             break;
           default:
             replacedKey = defaultPropertyReplacer(key, fullPath, propertyRenameMap);
@@ -103,7 +242,7 @@ export function jsStringify(obj: any, options?: JSStringifyOptions): string {
 
         const finalKey = camelCase ? camelCaseFn(replacedKey) : replacedKey;
         const keyPart = json ? `"${finalKey}"` : isSimpleKey(finalKey) ? finalKey : `"${finalKey}"`;
-        const valuePart = serialize(value, fullPath);
+        const valuePart = serialize(root, value, fullPath);
         return ' '.repeat(indentLevel * space) + `${keyPart}: ${valuePart}`;
       });
       const result = '{' + (space ? '\n' : '') + props.join(',' + (space ? '\n' : ' ')) + (space ? '\n' + ' '.repeat((indentLevel - 1) * space) : '') + '}';
@@ -116,5 +255,5 @@ export function jsStringify(obj: any, options?: JSStringifyOptions): string {
     }
   };
 
-  return serialize(obj);
+  return serialize(obj, obj);
 }
