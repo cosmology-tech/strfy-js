@@ -1,14 +1,14 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`applies replacer function if provided 1`] = `"{firstName: "Alice", lastName: "Johnson", age: undefined}"`;
+exports[`applies replacer function if provided 1`] = `"{"firstName": "Alice", "lastName": "Johnson", "age": undefined}"`;
 
 exports[`handles complex nested objects with arrays 1`] = `
 "{
-  user: {
-    id: 2,
-    details: {
-      name: "Bob",
-      hobbies: [
+  "user": {
+    "id": 2,
+    "details": {
+      "name": "Bob",
+      "hobbies": [
         "skiing",
         "cycling"
       ]
@@ -19,15 +19,15 @@ exports[`handles complex nested objects with arrays 1`] = `
 
 exports[`handles nested arrays with inlineArrayLimit 1`] = `
 "{
-  matrix: [[1, 2], [3, 4]]
+  "matrix": [[1, 2], [3, 4]]
 }"
 `;
 
-exports[`properly escapes strings when necessary 1`] = `"{complexString: "She said, \\"That's \`incredible\`!\\""}"`;
+exports[`properly escapes strings when necessary 1`] = `"{"complexString": "She said, \\"That's \`incredible\`!\\""}"`;
 
 exports[`serializes arrays with newlines when length exceeds the inlineArrayLimit with space set 1`] = `
 "{
-  numbers: [
+  "numbers": [
     1,
     2,
     3,
@@ -39,20 +39,20 @@ exports[`serializes arrays with newlines when length exceeds the inlineArrayLimi
 
 exports[`serializes arrays without newlines when length equals the inlineArrayLimit 1`] = `
 "{
-  numbers: [1, 2, 3, 4, 5]
+  "numbers": [1, 2, 3, 4, 5]
 }"
 `;
 
-exports[`serializes arrays without newlines when length exceeds the inlineArrayLimit 1`] = `"{numbers: [1, 2, 3, 4, 5]}"`;
+exports[`serializes arrays without newlines when length exceeds the inlineArrayLimit 1`] = `"{"numbers": [1, 2, 3, 4, 5]}"`;
 
-exports[`serializes arrays without newlines when length is below the inlineArrayLimit 1`] = `"{numbers: [1, 2, 3]}"`;
+exports[`serializes arrays without newlines when length is below the inlineArrayLimit 1`] = `"{"numbers": [1, 2, 3]}"`;
 
-exports[`serializes objects with keys starting with $ correctly 1`] = `"{$id: 1, name: "Alice", $type: "user"}"`;
+exports[`serializes objects with keys starting with $ correctly 1`] = `"{"$id": 1, "name": "Alice", "$type": "user"}"`;
 
-exports[`serializes simple objects without quotes on keys where possible 1`] = `"{id: 1, name: "Alice", isActive: true}"`;
+exports[`serializes simple objects without quotes on keys where possible 1`] = `"{"id": 1, "name": "Alice", "isActive": true}"`;
 
-exports[`switches to backticks when single quotes are in the string 1`] = `"{message: "It's a wonderful day!"}"`;
+exports[`switches to backticks when single quotes are in the string 1`] = `"{"message": "It's a wonderful day!"}"`;
 
-exports[`uses double quotes when backticks and single quotes are present 1`] = `"{quote: "\`This\` is 'awesome'!"}"`;
+exports[`uses double quotes when backticks and single quotes are present 1`] = `"{"quote": "\`This\` is 'awesome'!"}"`;
 
-exports[`uses single quotes for strings by default 1`] = `"{greeting: "Hello, world!"}"`;
+exports[`uses single quotes for strings by default 1`] = `"{"greeting": "Hello, world!"}"`;

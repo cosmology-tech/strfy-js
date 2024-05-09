@@ -2,13 +2,13 @@
 
 exports[`handles nested arrays with inlineArrayLimit 1`] = `
 "{
-  matrix: [[1, 2], [3, 4]]
+  "matrix": [[1, 2], [3, 4]]
 }"
 `;
 
 exports[`serializes arrays with newlines when length exceeds the inlineArrayLimit with space set 1`] = `
 "{
-  numbers: [
+  "numbers": [
     1,
     2,
     3,
@@ -20,10 +20,10 @@ exports[`serializes arrays with newlines when length exceeds the inlineArrayLimi
 
 exports[`serializes arrays without newlines when length equals the inlineArrayLimit 1`] = `
 "{
-  numbers: [1, 2, 3, 4, 5]
+  "numbers": [1, 2, 3, 4, 5]
 }"
 `;
 
-exports[`serializes arrays without newlines when length exceeds the inlineArrayLimit 1`] = `"{numbers: [1, 2, 3, 4, 5]}"`;
+exports[`serializes arrays without newlines when length exceeds the inlineArrayLimit 1`] = `"{"numbers": [1, 2, 3, 4, 5]}"`;
 
-exports[`serializes arrays without newlines when length is below the inlineArrayLimit 1`] = `"{numbers: [1, 2, 3]}"`;
+exports[`serializes arrays without newlines when length is below the inlineArrayLimit 1`] = `"{"numbers": [1, 2, 3]}"`;

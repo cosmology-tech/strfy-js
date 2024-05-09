@@ -1,13 +1,13 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+import { minimatch } from "minimatch";
+import { jsStringify } from "../src";
 
-exports[`assetlist 1`] = `
-"{
+const assetlist = {
   "$schema": "../assetlist.schema.json",
-  "chainName": "comdex",
+  "chain_name": "comdex",
   "assets": [
     {
       "description": "Native Token of Comdex Protocol",
-      "denomUnits": [
+      "denom_units": [
         {
           "denom": "ucmdx",
           "exponent": 0
@@ -21,11 +21,11 @@ exports[`assetlist 1`] = `
       "name": "Comdex",
       "display": "cmdx",
       "symbol": "CMDX",
-      "logoURIs": {
+      "logo_URIs": {
         "png": "https://raw.githubusercontent.com/cosmos/chain-registry/master/comdex/images/cmdx.png",
         "svg": "https://raw.githubusercontent.com/cosmos/chain-registry/master/comdex/images/cmdx.svg"
       },
-      "coingeckoId": "comdex",
+      "coingecko_id": "comdex",
       "images": [
         {
           "png": "https://raw.githubusercontent.com/cosmos/chain-registry/master/comdex/images/cmdx.png",
@@ -34,8 +34,9 @@ exports[`assetlist 1`] = `
       ]
     },
     {
+      "type_asset": "sdk.Coin",
       "description": "Governance Token of Harbor protocol on Comdex network",
-      "denomUnits": [
+      "denom_units": [
         {
           "denom": "uharbor",
           "exponent": 0
@@ -49,11 +50,11 @@ exports[`assetlist 1`] = `
       "name": "Harbor",
       "display": "harbor",
       "symbol": "HARBOR",
-      "logoURIs": {
+      "logo_URIs": {
         "png": "https://raw.githubusercontent.com/cosmos/chain-registry/master/comdex/images/harbor.png",
         "svg": "https://raw.githubusercontent.com/cosmos/chain-registry/master/comdex/images/harbor.svg"
       },
-      "coingeckoId": "harbor-2",
+      "coingecko_id": "harbor-2",
       "images": [
         {
           "png": "https://raw.githubusercontent.com/cosmos/chain-registry/master/comdex/images/harbor.png",
@@ -63,7 +64,7 @@ exports[`assetlist 1`] = `
     },
     {
       "description": "Stable Token of Harbor protocol on Comdex network",
-      "denomUnits": [
+      "denom_units": [
         {
           "denom": "ucmst",
           "exponent": 0
@@ -77,11 +78,11 @@ exports[`assetlist 1`] = `
       "name": "CMST",
       "display": "cmst",
       "symbol": "CMST",
-      "logoURIs": {
+      "logo_URIs": {
         "png": "https://raw.githubusercontent.com/cosmos/chain-registry/master/comdex/images/cmst.png",
         "svg": "https://raw.githubusercontent.com/cosmos/chain-registry/master/comdex/images/cmst.svg"
       },
-      "coingeckoId": "composite",
+      "coingecko_id": "composite",
       "images": [
         {
           "png": "https://raw.githubusercontent.com/cosmos/chain-registry/master/comdex/images/cmst.png",
@@ -90,5 +91,49 @@ exports[`assetlist 1`] = `
       ]
     }
   ]
-}"
-`;
+};
+
+
+it('assetlist', () => {
+
+  const options = {
+    camelCase: true,
+    space: 2,
+    propertyRenameMap: {
+      "/assets/*/denom_units": "denominations",
+      "/assets/[0-1]/logo_URIs": "logos"
+    }
+  };
+
+  const jsonString = jsStringify(assetlist, options);
+
+  expect(jsonString).toMatchSnapshot();
+});
+
+function propertyReplacer(
+  currentKey: string,
+  currentPath: string,
+  propertyRenameMap: { [pattern: string]: string }
+): string {
+  let finalKey = currentKey;
+  Object.keys(propertyRenameMap).forEach(pattern => {
+    if (minimatch(currentPath, pattern)) {
+      finalKey = propertyRenameMap[pattern];
+    }
+  });
+  return finalKey;
+}
+
+it('replacer', () => {
+  const options = {
+    camelCase: true,
+    space: 2,
+    propertyRenameMap: {
+      "/assets/*/denom_units": "denominations",
+      "/assets/[0-1]/logo_URIs": "logos"
+    },
+    propertyReplacer
+  };
+  const jsonString = jsStringify(assetlist, options);
+  expect(jsonString).toMatchSnapshot();
+});
