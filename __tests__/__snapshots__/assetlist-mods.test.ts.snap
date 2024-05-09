@@ -58,7 +58,7 @@ exports[`AssetList Modification 1`] = `
           },
           minContains: 1
         },
-        type_asset: {
+        asset_type: {
           type: 'string',
           enum: [
             'sdk.coin',
@@ -221,10 +221,10 @@ exports[`AssetList Modification 1`] = `
       additionalProperties: false,
       if: {
         required: [
-          'type_asset'
+          'asset_type'
         ],
         properties: {
-          type_asset: {
+          asset_type: {
             enum: [
               'erc20',
               'cw20',
