@@ -1,4 +1,4 @@
-import { jsStringify, JSStringifyPropertyReplacerOptions, JSStringifyReplacer } from '../src';
+import { jsonStringify, JSStringifyPropertyReplacerOptions } from '../src';
 
 it('serializes simple objects without quotes on keys where possible', () => {
   const obj = {
@@ -6,7 +6,7 @@ it('serializes simple objects without quotes on keys where possible', () => {
     name: 'Alice',
     isActive: true
   };
-  const output = jsStringify(obj);
+  const output = jsonStringify(obj);
   expect(output).toMatchSnapshot();
 });
 
@@ -20,7 +20,7 @@ it('handles complex nested objects with arrays', () => {
       }
     }
   };
-  const output = jsStringify(obj, { space: 2 });
+  const output = jsonStringify(obj, { space: 2 });
   expect(output).toMatchSnapshot();
 });
 
@@ -28,7 +28,7 @@ it('uses single quotes for strings by default', () => {
   const obj = {
     greeting: "Hello, world!"
   };
-  const output = jsStringify(obj);
+  const output = jsonStringify(obj);
   expect(output).toMatchSnapshot();
 });
 
@@ -36,7 +36,7 @@ it('switches to backticks when single quotes are in the string', () => {
   const obj = {
     message: "It's a wonderful day!"
   };
-  const output = jsStringify(obj);
+  const output = jsonStringify(obj);
   expect(output).toMatchSnapshot();
 });
 
@@ -44,7 +44,7 @@ it('uses double quotes when backticks and single quotes are present', () => {
   const obj = {
     quote: "`This` is 'awesome'!"
   };
-  const output = jsStringify(obj, { quotes: 'double' });
+  const output = jsonStringify(obj, { quotes: 'double' });
   expect(output).toMatchSnapshot();
 });
 
@@ -52,23 +52,43 @@ it('properly escapes strings when necessary', () => {
   const obj = {
     complexString: "She said, \"That's `incredible`!\""
   };
-  const output = jsStringify(obj, { quotes: 'double' });
+  const output = jsonStringify(obj, { quotes: 'double' });
   expect(output).toMatchSnapshot();
 });
 
+interface Person {
+  firstName: string;
+  lastName: string;
+  age: number
+}
+
 it('applies replacer function if provided', () => {
-  const obj = {
-    firstName: 'Alice',
-    lastName: 'Johnson',
-    age: 30
-  };
-  const valueReplacer = (opts: JSStringifyPropertyReplacerOptions<any, any>) => {
-    if (opts.currentKey === 'age') return 45;
-    return opts.value;
-  };
-  const output = jsStringify(obj, {
+  const obj: Person[] = [
+    {
+      firstName: 'Alice',
+      lastName: 'Johnson',
+      age: 30
+    },
+    {
+      firstName: 'Dana',
+      lastName: 'Johnson',
+      age: 30
+    }
+  ]
+  const output = jsonStringify(obj, {
     valueReplacer: {
-      '/age': valueReplacer
+      '*': (opts: JSStringifyPropertyReplacerOptions<Person, Person[]>) => {
+        if (opts.obj.lastName === 'Johnson') {
+          if (opts.currentKey === 'age') {
+            return 20;
+          }
+        }
+        return opts.value;
+      },
+      '/*/age': (opts: JSStringifyPropertyReplacerOptions<Person, Person[]>) => {
+        if (opts.obj.firstName === 'Dana') return 46;
+        return opts.value;
+      },
     }
   });
   expect(output).toMatchSnapshot();
@@ -80,7 +100,7 @@ it('serializes objects with keys starting with $ correctly', () => {
     name: 'Alice',
     $type: 'user'
   };
-  const output = jsStringify(obj);
+  const output = jsonStringify(obj);
   expect(output).toMatchSnapshot();
 });
 
@@ -91,7 +111,7 @@ it('serializes arrays without newlines when length is below the inlineArrayLimit
   const options = {
     inlineArrayLimit: 3
   };
-  const output = jsStringify(obj, options);
+  const output = jsonStringify(obj, options);
   expect(output).toMatchSnapshot();
 });
 
@@ -102,7 +122,7 @@ it('serializes arrays without newlines when length exceeds the inlineArrayLimit'
   const options = {
     inlineArrayLimit: 3
   };
-  const output = jsStringify(obj, options);
+  const output = jsonStringify(obj, options);
   expect(output).toMatchSnapshot();
 });
 it('serializes arrays with newlines when length exceeds the inlineArrayLimit with space set', () => {
@@ -113,7 +133,7 @@ it('serializes arrays with newlines when length exceeds the inlineArrayLimit wit
     inlineArrayLimit: 3,
     space: 2
   };
-  const output = jsStringify(obj, options);
+  const output = jsonStringify(obj, options);
   expect(output).toMatchSnapshot();
 });
 
@@ -125,7 +145,7 @@ it('serializes arrays without newlines when length equals the inlineArrayLimit',
     inlineArrayLimit: 5,
     space: 2
   };
-  const output = jsStringify(obj, options);
+  const output = jsonStringify(obj, options);
   expect(output).toMatchSnapshot();
 });
 
@@ -140,6 +160,6 @@ it('handles nested arrays with inlineArrayLimit', () => {
     inlineArrayLimit: 2, // Applies to inner arrays
     space: 2
   };
-  const output = jsStringify(obj, options);
+  const output = jsonStringify(obj, options);
   expect(output).toMatchSnapshot();
 });

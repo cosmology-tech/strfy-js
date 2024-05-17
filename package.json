@@ -1,6 +1,6 @@
 {
   "name": "strfy-js",
-  "version": "2.2.2",
+  "version": "2.3.0",
   "description": "kinda like JSON.stringify, but for generating JSON that is meant for JS objects",
   "author": "Dan Lynch <pyramation@gmail.com>",
   "homepage": "https://github.com/pyramation/strfy-js#readme",
@@ -58,16 +58,20 @@
   },
   "devDependencies": {
     "@types/jest": "^29.5.12",
-    "eslint": "8.38.0",
     "eslint-config-prettier": "^8.8.0",
     "eslint-plugin-prettier": "^4.0.0",
+    "eslint": "8.38.0",
     "esprima": "4.0.1",
-    "jest": "^29.5.0",
     "jest-in-case": "1.0.2",
+    "jest": "^29.5.0",
     "prettier": "^2.8.7",
     "rimraf": "5.0.0",
+    "nested-obj": "^0.0.1",
     "ts-jest": "^29.1.0",
     "ts-node": "10.9.2",
     "typescript": "^5.0.4"
+  },
+  "dependencies": {
+    "minimatch": "^9.0.4"
   }
 }

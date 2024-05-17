@@ -1,0 +1,364 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AssetList Modification 0 1`] = `
+"{
+  assets: [
+    {
+      denomUnits: [
+        {
+          denom: 'ucmdx'
+        },
+        {
+          denom: 'cmdx'
+        }
+      ],
+      base: 'ucmdx',
+      assetType: 'unknown'
+    },
+    {
+      assetType: 'sdk.Factory',
+      denomUnits: [
+        {
+          denom: 'uharbor'
+        },
+        {
+          denom: 'harbor'
+        }
+      ],
+      base: 'uharbor'
+    },
+    {
+      denomUnits: [
+        {
+          denom: 'ucmst'
+        },
+        {
+          denom: 'cmst'
+        }
+      ],
+      base: 'ucmst',
+      assetType: 'unknown'
+    },
+    {
+      denomUnits: [
+        {
+          denom: 'uibc'
+        },
+        {
+          denom: 'ibc'
+        }
+      ],
+      base: 'ibc/A358FDF578F3483381C3191F86E4C6859E76100',
+      assetType: 'ibc'
+    }
+  ]
+}"
+`;
+
+exports[`AssetList Modification 1`] = `
+"{
+  assets: [
+    {
+      assetType: 'unknown'
+    },
+    {
+      assetType: 'sdk.Factory'
+    },
+    {
+      assetType: 'unknown'
+    },
+    {
+      assetType: 'ibc'
+    }
+  ]
+}"
+`;
+
+exports[`AssetList Modification 1 1`] = `
+"{
+  assets: [
+    {
+      denomUnits: [
+        {
+          denom: 'ucmdx'
+        },
+        {
+          denom: 'cmdx'
+        }
+      ],
+      base: 'ucmdx',
+      assetType: 'unknown'
+    },
+    {
+      assetType: 'sdk.Factory',
+      denomUnits: [
+        {
+          denom: 'uharbor'
+        },
+        {
+          denom: 'harbor'
+        }
+      ],
+      base: 'uharbor'
+    },
+    {
+      denomUnits: [
+        {
+          denom: 'ucmst'
+        },
+        {
+          denom: 'cmst'
+        }
+      ],
+      base: 'ucmst',
+      assetType: 'unknown'
+    },
+    {
+      denomUnits: [
+        {
+          denom: 'uibc'
+        },
+        {
+          denom: 'ibc'
+        }
+      ],
+      base: 'ibc/A358FDF578F3483381C3191F86E4C6859E76100',
+      assetType: 'ibc'
+    }
+  ]
+}"
+`;
+
+exports[`AssetList Modification 2`] = `
+"{
+  $schema: '../assetlist.schema.json',
+  chainName: 'comdex',
+  assets: [
+    {
+      description: 'Native Token of Comdex Protocol',
+      base: 'ucmdx',
+      name: 'Comdex',
+      display: 'cmdx',
+      symbol: 'CMDX',
+      coingeckoId: 'comdex',
+      images: [
+        {
+          png: 'https://raw.githubusercontent.com/cosmos/chain-registry/master/comdex/images/cmdx.png'
+        }
+      ],
+      assetType: 'unknown'
+    },
+    {
+      assetType: 'sdk.Factory',
+      description: 'Governance Token of Harbor protocol on Comdex network',
+      base: 'uharbor',
+      name: 'Harbor',
+      display: 'harbor',
+      symbol: 'HARBOR',
+      coingeckoId: 'harbor-2',
+      images: [
+        {
+          png: 'https://raw.githubusercontent.com/cosmos/chain-registry/master/comdex/images/harbor.png'
+        }
+      ]
+    },
+    {
+      description: 'Stable Token of Harbor protocol on Comdex network',
+      base: 'ucmst',
+      name: 'CMST',
+      display: 'cmst',
+      symbol: 'CMST',
+      coingeckoId: 'composite',
+      images: [
+        {
+          png: 'https://raw.githubusercontent.com/cosmos/chain-registry/master/comdex/images/cmst.png'
+        }
+      ],
+      assetType: 'unknown'
+    },
+    {
+      description: 'My ibc token',
+      base: 'ibc/A358FDF578F3483381C3191F86E4C6859E76100',
+      name: 'IBC',
+      display: 'ibc',
+      symbol: 'IBC',
+      coingeckoId: 'ibc',
+      images: [
+        {
+          png: 'https://raw.githubusercontent.com/cosmos/chain-registry/master/comdex/images/cmst.png'
+        }
+      ],
+      assetType: 'ibc'
+    }
+  ]
+}"
+`;
+
+exports[`AssetList Modification 2 1`] = `
+"{
+  assets: [
+    {
+      denomUnits: [
+        {
+          denom: 'ucmdx',
+          exponent: 0
+        },
+        {
+          denom: 'cmdx',
+          exponent: 6
+        }
+      ],
+      base: 'ucmdx',
+      assetType: 'unknown'
+    },
+    {
+      assetType: 'sdk.Factory',
+      denomUnits: [
+        {
+          denom: 'uharbor',
+          exponent: 0
+        },
+        {
+          denom: 'harbor',
+          exponent: 6
+        }
+      ],
+      base: 'uharbor'
+    },
+    {
+      denomUnits: [
+        {
+          denom: 'ucmst',
+          exponent: 0
+        },
+        {
+          denom: 'cmst',
+          exponent: 6
+        }
+      ],
+      base: 'ucmst',
+      assetType: 'unknown'
+    },
+    {
+      denomUnits: [
+        {
+          denom: 'uibc',
+          exponent: 0
+        },
+        {
+          denom: 'ibc',
+          exponent: 6
+        }
+      ],
+      base: 'ibc/A358FDF578F3483381C3191F86E4C6859E76100',
+      assetType: 'ibc'
+    }
+  ]
+}"
+`;
+
+exports[`AssetList Modification 3 1`] = `
+"{
+  assets: [
+    {
+      denomUnits: [
+        {
+          denom: 'ucmdx',
+          exponent: 0
+        },
+        {
+          denom: 'cmdx',
+          exponent: 6
+        }
+      ],
+      logos: {
+        png: 'https://raw.githubusercontent.com/cosmos/chain-registry/master/comdex/images/cmdx.png'
+      }
+    },
+    {
+      denomUnits: [
+        {
+          denom: 'uharbor',
+          exponent: 0
+        },
+        {
+          denom: 'harbor',
+          exponent: 6
+        }
+      ],
+      logos: {
+        png: 'https://raw.githubusercontent.com/cosmos/chain-registry/master/comdex/images/harbor.png'
+      }
+    },
+    {
+      denomUnits: [
+        {
+          denom: 'ucmst',
+          exponent: 0
+        },
+        {
+          denom: 'cmst',
+          exponent: 6
+        }
+      ],
+      logos: {
+        png: 'https://raw.githubusercontent.com/cosmos/chain-registry/master/comdex/images/cmst.png'
+      }
+    },
+    {
+      denomUnits: [
+        {
+          denom: 'uibc',
+          exponent: 0
+        },
+        {
+          denom: 'ibc',
+          exponent: 6
+        }
+      ],
+      logos: {
+        png: 'https://raw.githubusercontent.com/cosmos/chain-registry/master/comdex/images/cmst.png'
+      }
+    }
+  ]
+}"
+`;
+
+exports[`Chain Modification 3 1`] = `
+"{
+  chainName: 'comdex',
+  prettyName: 'Comdex',
+  chainId: 'comdex-1',
+  bech32Prefix: 'comdex',
+  fees: {
+    feeTokens: [
+      {
+        denom: 'ucmdx',
+        fixedMinGasPrice: 0,
+        lowGasPrice: 0,
+        averageGasPrice: 0.025,
+        highGasPrice: 0.04
+      }
+    ]
+  },
+  codebase: {
+    cosmosSdkVersion: 'v0.47.5',
+    cosmwasmVersion: 'v0.41.0',
+    cosmwasmEnabled: true,
+    versions: [
+      {
+        name: 'v9.0.0'
+      },
+      {
+        name: 'v10.0.0'
+      },
+      {
+        name: 'v11.5.0'
+      },
+      {
+        name: 'v13.3.0'
+      }
+    ]
+  }
+}"
+`;

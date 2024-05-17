@@ -22,6 +22,7 @@ yarn.lock
 # project files
 __snapshots__
 __fixtures__
+test-utils
 __tests__
 .editorconfig
 .eslintignore

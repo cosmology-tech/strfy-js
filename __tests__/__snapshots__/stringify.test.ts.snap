@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`applies replacer function if provided 1`] = `"{firstName: 'Alice', lastName: 'Johnson', age: undefined}"`;
+exports[`applies replacer function if provided 1`] = `"{firstName: 'Alice', lastName: 'Johnson', age: 45}"`;
 
 exports[`handles complex nested objects with arrays 1`] = `
 "{
