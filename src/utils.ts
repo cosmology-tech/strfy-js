@@ -93,11 +93,6 @@ function sortPaths(paths) {
   return paths;
 }
 
-
-function hasAncestor(currentPath, includePaths) {
-  return !!findNearestAncestor(currentPath, includePaths);
-}
-
 function findNearestAncestor(currentPath, includePaths) {
   let pathToCheck = currentPath;
   while (pathToCheck !== '/' && pathToCheck !== '') {
@@ -120,8 +115,8 @@ export const shouldInclude = (type: string, options: ShouldIncludeOptions): bool
     patterns.some(pattern => globPattern.test(pattern) ? minimatch(type, pattern) : type === pattern);
 
   const isIncluded = includesEffectivelySet ? matchesPattern(expandPaths(options.include), type) : true;
-  const isIncludedByAncestor = !!findNearestAncestor(type, options.include);
   const isExcluded = excludesEffectivelySet ? matchesPattern(options.exclude, type) : false;
+  const isIncludedByAncestor = !!findNearestAncestor(type, options.include);
 
   const toInclude = isIncluded;
 

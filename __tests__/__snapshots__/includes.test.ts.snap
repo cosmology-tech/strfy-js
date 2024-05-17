@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`AssetList Modification 1`] = `
+exports[`AssetList Modification 0 1`] = `
 "{
   assets: [
     {
@@ -12,7 +12,8 @@ exports[`AssetList Modification 1`] = `
           denom: 'cmdx'
         }
       ],
-      base: 'ucmdx'
+      base: 'ucmdx',
+      assetType: 'unknown'
     },
     {
       assetType: 'sdk.Factory',
@@ -35,7 +36,8 @@ exports[`AssetList Modification 1`] = `
           denom: 'cmst'
         }
       ],
-      base: 'ucmst'
+      base: 'ucmst',
+      assetType: 'unknown'
     },
     {
       denomUnits: [
@@ -46,7 +48,147 @@ exports[`AssetList Modification 1`] = `
           denom: 'ibc'
         }
       ],
-      base: 'ibc/A358FDF578F3483381C3191F86E4C6859E76100'
+      base: 'ibc/A358FDF578F3483381C3191F86E4C6859E76100',
+      assetType: 'ibc'
+    }
+  ]
+}"
+`;
+
+exports[`AssetList Modification 1`] = `
+"{
+  assets: [
+    {
+      assetType: 'unknown'
+    },
+    {
+      assetType: 'sdk.Factory'
+    },
+    {
+      assetType: 'unknown'
+    },
+    {
+      assetType: 'ibc'
+    }
+  ]
+}"
+`;
+
+exports[`AssetList Modification 1 1`] = `
+"{
+  assets: [
+    {
+      denomUnits: [
+        {
+          denom: 'ucmdx'
+        },
+        {
+          denom: 'cmdx'
+        }
+      ],
+      base: 'ucmdx',
+      assetType: 'unknown'
+    },
+    {
+      assetType: 'sdk.Factory',
+      denomUnits: [
+        {
+          denom: 'uharbor'
+        },
+        {
+          denom: 'harbor'
+        }
+      ],
+      base: 'uharbor'
+    },
+    {
+      denomUnits: [
+        {
+          denom: 'ucmst'
+        },
+        {
+          denom: 'cmst'
+        }
+      ],
+      base: 'ucmst',
+      assetType: 'unknown'
+    },
+    {
+      denomUnits: [
+        {
+          denom: 'uibc'
+        },
+        {
+          denom: 'ibc'
+        }
+      ],
+      base: 'ibc/A358FDF578F3483381C3191F86E4C6859E76100',
+      assetType: 'ibc'
+    }
+  ]
+}"
+`;
+
+exports[`AssetList Modification 2`] = `
+"{
+  $schema: '../assetlist.schema.json',
+  chainName: 'comdex',
+  assets: [
+    {
+      description: 'Native Token of Comdex Protocol',
+      base: 'ucmdx',
+      name: 'Comdex',
+      display: 'cmdx',
+      symbol: 'CMDX',
+      coingeckoId: 'comdex',
+      images: [
+        {
+          png: 'https://raw.githubusercontent.com/cosmos/chain-registry/master/comdex/images/cmdx.png'
+        }
+      ],
+      assetType: 'unknown'
+    },
+    {
+      assetType: 'sdk.Factory',
+      description: 'Governance Token of Harbor protocol on Comdex network',
+      base: 'uharbor',
+      name: 'Harbor',
+      display: 'harbor',
+      symbol: 'HARBOR',
+      coingeckoId: 'harbor-2',
+      images: [
+        {
+          png: 'https://raw.githubusercontent.com/cosmos/chain-registry/master/comdex/images/harbor.png'
+        }
+      ]
+    },
+    {
+      description: 'Stable Token of Harbor protocol on Comdex network',
+      base: 'ucmst',
+      name: 'CMST',
+      display: 'cmst',
+      symbol: 'CMST',
+      coingeckoId: 'composite',
+      images: [
+        {
+          png: 'https://raw.githubusercontent.com/cosmos/chain-registry/master/comdex/images/cmst.png'
+        }
+      ],
+      assetType: 'unknown'
+    },
+    {
+      description: 'My ibc token',
+      base: 'ibc/A358FDF578F3483381C3191F86E4C6859E76100',
+      name: 'IBC',
+      display: 'ibc',
+      symbol: 'IBC',
+      coingeckoId: 'ibc',
+      images: [
+        {
+          png: 'https://raw.githubusercontent.com/cosmos/chain-registry/master/comdex/images/cmst.png'
+        }
+      ],
+      assetType: 'ibc'
     }
   ]
 }"
@@ -66,7 +208,8 @@ exports[`AssetList Modification 2 1`] = `
           exponent: 6
         }
       ],
-      base: 'ucmdx'
+      base: 'ucmdx',
+      assetType: 'unknown'
     },
     {
       assetType: 'sdk.Factory',
@@ -93,7 +236,8 @@ exports[`AssetList Modification 2 1`] = `
           exponent: 6
         }
       ],
-      base: 'ucmst'
+      base: 'ucmst',
+      assetType: 'unknown'
     },
     {
       denomUnits: [
@@ -106,7 +250,8 @@ exports[`AssetList Modification 2 1`] = `
           exponent: 6
         }
       ],
-      base: 'ibc/A358FDF578F3483381C3191F86E4C6859E76100'
+      base: 'ibc/A358FDF578F3483381C3191F86E4C6859E76100',
+      assetType: 'ibc'
     }
   ]
 }"
@@ -197,6 +342,7 @@ exports[`Chain Modification 3 1`] = `
     ]
   },
   codebase: {
+    cosmosSdkVersion: 'v0.47.5',
     cosmwasmVersion: 'v0.41.0',
     cosmwasmEnabled: true,
     versions: [
