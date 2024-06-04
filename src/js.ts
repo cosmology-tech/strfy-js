@@ -164,7 +164,7 @@ export function jsStringify(obj: any, options?: JSStringifyOptions): string {
             // Apply setter to all properties if needed
             Object.keys(obj).forEach(prop => {
               if (obj[prop] === undefined) {
-                obj[prop] = setter({
+                const val = setter({
                   currentKey: prop,
                   currentPath: `${currentPath}/${prop}`,
                   obj,
@@ -172,10 +172,13 @@ export function jsStringify(obj: any, options?: JSStringifyOptions): string {
                   root,
                   defaultValuesMap
                 });
+                if (val !== undefined) {
+                  obj[prop] = val;
+                }
               }
             });
           } else if (property && obj[property] === undefined) {
-            obj[property] = setter({
+            const val = setter({
               currentKey: property,
               currentPath,
               obj,
@@ -183,6 +186,9 @@ export function jsStringify(obj: any, options?: JSStringifyOptions): string {
               root,
               defaultValuesMap
             });
+            if (val !== undefined) {
+              obj[property] = val;
+            }
           }
         }
       });
